@@ -2,22 +2,53 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	public function dbSearch() {
+		$searchTerms = $_GET["q"];
 
-	public function showWelcome()
-	{
-		return View::make('hello');
+		if (!is_numeric($searchTerms) && !is_int($searchTerms))
+		{
+			$query = DB::select(DB::raw("
+			SELECT
+				isbn, title, fname, lname
+			FROM
+				author_book
+			INNER JOIN
+				books
+			ON
+				books.id=author_book.book_id
+			INNER JOIN
+				authors
+			ON
+				author_book.author_id=authors.id
+			WHERE
+				title = '$searchTerms'
+			OR
+				fname = '$searchTerms'
+			OR
+				lname = '$searchTerms'
+				"));
+		} else {
+			$query = DB::select(DB::raw("
+			SELECT
+				isbn, title, fname, lname
+			FROM
+				author_book
+			INNER JOIN
+				books
+			ON
+				books.id=author_book.book_id
+			INNER JOIN
+				authors
+			ON
+				author_book.author_id=authors.id
+			WHERE
+				isbn = '$searchTerms'
+				"));
+		}
+
+
+
+
+		return $query;
 	}
-
 }

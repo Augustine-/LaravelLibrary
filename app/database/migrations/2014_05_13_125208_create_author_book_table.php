@@ -18,7 +18,6 @@ class CreateAuthorBookTable extends Migration {
 			$table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
 			$table->integer('book_id')->unsigned()->index();
 			$table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
-			$table->timestamps();
 		});
 	}
 

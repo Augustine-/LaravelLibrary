@@ -27,6 +27,13 @@ class BooksTableSeeder extends Seeder {
 				"body" => "A man folds himself into a box, and emerges again.",
 				"published" => date_create('1933-03-03')
 			]);
+
+			Book::create([
+				"isbn" => 444444444,
+				"title" => "The Fourth Chapter",
+				"body" => "An applicant learns a new language and framework, quickly.",
+				"published" => date_create('2014-03-13')
+			]);
 		}
 
 }
